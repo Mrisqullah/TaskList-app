@@ -37,4 +37,32 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('tasks.index')->with('message', 'Task deleted successfully');
     }
+    public function edit(Task $task){
+        return Inertia::render('tasks/edit', compact('task'));
+    }
+    public function update(Request $request, Task $task){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'detail' => 'required|string|max:1000',
+
+        ]);
+
+        $task->update([
+            'name' => $request->input('name'),
+            'detail' => $request->input('detail'),
+            'status' => $request->input('status'),
+        ]);
+
+        return redirect()->route('tasks.index')->with('message', 'Task updated successfully');
+    }
+    public function updateStatus(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:Pending,Completed',
+        ]);
+
+        $task->update($validated);
+
+        return back()->with('message', 'Task status updated successfully');
+    }
 }

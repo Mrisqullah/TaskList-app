@@ -47,8 +47,7 @@ export default function Dashboard() {
             </div>
              {tasks.length > 0 &&(
                 <div className='m-4'>
-                     <Table>
-                        <TableCaption>A list of your recent products.</TableCaption>
+                     <Table>      
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-[100px]">ID</TableHead>
@@ -65,7 +64,9 @@ export default function Dashboard() {
                                     <TableCell>{task.status}</TableCell>
                                     <TableCell>{task.detail}</TableCell>
                                     <TableCell className="text-center space-x-2">
-                                        <Link ><Button className="bg-slate-600 hover:bg-slate-700">Edit</Button></Link>
+                                        <Link href={`/tasks/${task.id}/edit`}>
+                                            <Button className="bg-slate-600 hover:bg-slate-700">Edit</Button>
+                                        </Link>
                                         <Button onClick={() => handleDelete(task.id, task.name)} className="bg-red-500 hover:bg-red-700">Delete</Button>
                                     </TableCell>
                                 </TableRow>
